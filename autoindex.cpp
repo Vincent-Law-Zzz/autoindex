@@ -25,19 +25,23 @@ int autoindex_cre(std::string path){
 	system(pth.c_str());
 	std::ifstream fin;
 	fin.open("fin");
-	std::cout << fin.is_open() << std::endl;
+	std::cout << "this " << path << std::endl;
 	while (!fin.eof())
 	{
 		fin>>str;
 		if (!fin.eof())
+		{
+			std::cout << str << std::endl;
 			lsf.push_back(str);
+		}
 	}
 	fin.close();
 	remove("fin");
 	std::vector<std::string>::iterator it = lsf.begin();
 	while(it != lsf.end())
     	{
-        	std::cout << *it << std::endl;
+		if (isDir(path + "/" + (*it)))
+        		autoindex_cre(path + "/" + (*it));
         	++it;
     	}
 	return 0;
