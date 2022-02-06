@@ -20,7 +20,7 @@ bool isDir(std::string name)
 int autoindex_cre(std::string path){
 	std::string str;
 	std::string pth;
-	std::vector<std::string> lsf = {};
+	std::vector<std::string> lsf;
 	pth = "ls ./" + path + " >> fin";
 	system(pth.c_str());
 	std::ifstream fin;
@@ -29,10 +29,17 @@ int autoindex_cre(std::string path){
 	while (!fin.eof())
 	{
 		fin>>str;
-		lsf.push_back(str);
+		if (!fin.eof())
+			lsf.push_back(str);
 	}
 	fin.close();
 	remove("fin");
+	std::vector<std::string>::iterator it = lsf.begin();
+	while(it != lsf.end())
+    	{
+        	std::cout << *it << std::endl;
+        	++it;
+    	}
 	return 0;
 }
 
